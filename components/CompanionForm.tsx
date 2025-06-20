@@ -51,7 +51,7 @@ const onSubmit = async (values: z.infer<typeof formSchema>) => {
   const toastId = toast.loading("Creating your companion..."); 
   try {
     const companion = await createCompanion(values);
-    redirect(`/companion/${companion.id}`);
+    redirect(`/companions/${companion.id}`);
   } 
   catch(e){
     console.error("Error creating companion", e);
