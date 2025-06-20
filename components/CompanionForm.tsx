@@ -18,6 +18,9 @@ import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select"
 import { subjects } from "@/constants"
 import { Textarea } from "./ui/textarea"
+import { createCompanion } from "@/lib/actions/companions.actions"
+import { redirect } from "next/navigation"
+import { toast } from "sonner"
 
 const formSchema = z.object({
   name: z.string().min(2, {message: "Companion name must be at least 2 characters.",}),
@@ -25,7 +28,7 @@ const formSchema = z.object({
   topic: z.string().min(2, {message: "topic is required.",}),
   voice:z.string().min(2, {message: "voice is required.",}),
   style:z.string().min(2, {message: "style is required.",}),
-  language:z.string().min(2, {message: "language is required.",}),
+  // language:z.string().min(2, {message: "language is required.",}),
   duration:z.coerce.number().min(1, { message: "Duration is required.",}),
 })
 
@@ -38,24 +41,35 @@ function CompanionForm() {
       topic : "",
       voice : "",
       style : "",
-      language : "",
+      // language : "",
       duration : 15,
     },
+    mode:"onChange"
   })
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
-
-    console.log(values)
+const onSubmit = async (values: z.infer<typeof formSchema>) => {
+  const toastId = toast.loading("Creating your companion..."); 
+  try {
+    const companion = await createCompanion(values);
+    redirect(`/companion/${companion.id}`);
+  } 
+  catch(e){
+    console.error("Error creating companion", e);
+    redirect("/");
   }
+};
+
+
 
 
   return(
     <div>
+      
       <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
         <FormField
           control={form.control}
-          name="username"
+          name="name"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Companion name</FormLabel>
@@ -160,7 +174,7 @@ function CompanionForm() {
             </FormItem>
           )}
         />
-        <FormField
+        {/* <FormField
           control={form.control}
           name="language"
           render={({ field }) => (
@@ -183,7 +197,7 @@ function CompanionForm() {
               <FormMessage />
             </FormItem>
           )}
-          />
+          /> */}
           <FormField
           control={form.control}
           name="duration"
@@ -202,7 +216,14 @@ function CompanionForm() {
             </FormItem>
           )}
         />
-        <Button className="w-full cursor-pointer">Build Your Companion</Button>
+        <Button 
+          type="submit" 
+          className="w-full cursor-pointer"
+          disabled={form.formState.isSubmitting}
+        >
+          {form.formState.isSubmitting ? "Creating..." : "Build Your Companion"}
+        </Button>
+
       </form>
     </Form>
     </div>
