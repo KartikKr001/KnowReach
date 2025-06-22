@@ -5,7 +5,7 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --primary: oklch(0.205 0 0);
+  --primary: oklch(20.463% 0.00002 271.152);
 
   --cta: #2c2c2c;
   --cta-gold: #fccc41;
@@ -146,8 +146,14 @@ body {
     @apply flex flex-wrap gap-4 w-full max-md:justify-center;
   }
   .companion-card {
-    @apply flex flex-col rounded-4xl border border-black px-4 py-4 gap-5 w-full min-lg:max-w-[410px] justify-between;
+    @apply flex flex-col justify-between gap-6 w-full min-lg:max-w-[400px]
+          rounded-2xl border shadow-md
+          px-6 py-6 hover:shadow-lg transition-shadow duration-200;
   }
+  .companion-card {
+    @apply transition-all duration-300 ease-in-out transform hover:scale-[1.02];
+  }
+
   .subject-badge {
     @apply bg-black text-white rounded-4xl text-sm px-2 py-1 capitalize;
   }

@@ -30,7 +30,11 @@ const CompanionList = ({title,companions,classNames} : {title:string,companions?
               <TableCell>
                 <Link href={`/companion/${item.id}`}>
                   <div className='flex items-center gap-2'>
-                    <div className='size-[72px] flex items-center justify-center rounded-lg max-md:hidden' style={{backgroundColor:getSubjectColor(item.subject)}}>
+                    <div className='size-[72px] flex items-center justify-center rounded-lg max-md:hidden' 
+                    style={{
+                      // backgroundColor:getSubjectColor(item.subject)
+                      background: `linear-gradient(to right, ${getSubjectColor(item.subject)[0]}, ${getSubjectColor(item.subject)[1]})`
+                    }}>
                       <Image src={`/icons/${item.subject}.svg`} alt='subject-name' width={35} height={35} />
                     </div>
                     <div className="flex flex-col gap-2">
@@ -44,7 +48,11 @@ const CompanionList = ({title,companions,classNames} : {title:string,companions?
                 <div className='subject-badge w-fit max-md:hidden'>
                   {item.subject}
                 </div>
-                <div className="flex items-center justify-center rounded-lg w-fit p-2 md:hidden" style={{backgroundColor:getSubjectColor(item.subject)}}>
+                <div className="flex items-center justify-center rounded-lg w-fit p-2 md:hidden" 
+                    style={{
+                      // backgroundColor:getSubjectColor(item.subject)
+                      background: `linear-gradient(to right, ${getSubjectColor(item.subject)[0]}, ${getSubjectColor(item.subject)[1]})`
+                    }}>
                       <Image src={`/icons/${item.subject}.svg`} alt='subject-name' width={18} height={18} />
                 </div>
               </TableCell>

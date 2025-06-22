@@ -141,8 +141,8 @@ const onSubmit = async (values: z.infer<typeof formSchema>) => {
                     <SelectValue placeholder="Select Voice" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="Female" key="Female" className="input capitalize">Female</SelectItem>
-                    <SelectItem value="Male" key="Male" className="input capitalize">Male</SelectItem>
+                    <SelectItem value="female" key="female" className="input capitalize">Female</SelectItem>
+                    <SelectItem value="male" key="male" className="input capitalize">Male</SelectItem>
                   </SelectContent>
                 </Select>
               </FormControl>

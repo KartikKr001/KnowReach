@@ -4,13 +4,19 @@ import React, { useState } from 'react'
 import { Button } from './ui/button'
 import Image from 'next/image'
 import Link from 'next/link'
+import { getSubjectColor } from '@/lib/utils'
 
 
 
-const CompanionCard = ({id,subject,heading,duration,topic,color}:{color:string,subject:string,heading:string,duration:number,topic:string,id:string}) => {
+const CompanionCard = ({id,subject,name,duration,topic}:{subject:string,name:string,duration:number,topic:string,id:string}) => {
     const [bookmark,setBookmark] = useState(false);
+    const [from,to] = getSubjectColor(subject);
     return (
-        <div className="companion-card" style={{backgroundColor: color}}>
+        <div className="companion-card" style={
+            {
+                background: `linear-gradient(to right, ${from}, ${to})`
+                // backgroundColor: getSubjectColor(subject)
+            }}>
             <div className="flex justify-between items-center">
                 <div className='subject-badge'>{subject}</div>
                 <Button onClick={() => setBookmark(!bookmark)}>
@@ -21,7 +27,7 @@ const CompanionCard = ({id,subject,heading,duration,topic,color}:{color:string,s
                     />
                 </Button>
             </div>
-            <h2 className='text-2xl font-bold'>{heading}</h2>
+            <h2 className='text-2xl font-bold'>{name}</h2>
             <p className='text-sm'>Topic: {topic}</p>
             <div className="flex items-center gap-2">
                 <Image src="/icons/clock.svg" alt="time" width={13.5} height={13.5} />

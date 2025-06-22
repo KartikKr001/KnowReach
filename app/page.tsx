@@ -13,9 +13,9 @@ const Page = () =>{
         Let's get started
       </Button> */}
       <section className='home-section '>
-        <CompanionCard id="1" heading='Neura the Brain Explorer' topic='Neural Network of Brain' duration={45} subject="Science" color='#ffda6e'/>
-        <CompanionCard id="2" heading='Countsy the Number Wizard' topic='Derivatives & Integrals' duration={30} subject="Maths" color='#e5d0ff'/>
-        <CompanionCard id="3" heading='Verba the Vocabulary Builder' topic="English Literature" duration={30} subject="Language" color='#bde7ff'/>
+        <CompanionCard id="1" name='Neura the Brain Explorer' topic='Neural Network of Brain' duration={45} subject="Science"/>
+        <CompanionCard id="2" name='Countsy the Number Wizard' topic='Derivatives & Integrals' duration={30} subject="Maths" />
+        <CompanionCard id="3" name='Verba the Vocabulary Builder' topic="English Literature" duration={30} subject="Language"/>
       </section>
 
       <section className="home-section">
