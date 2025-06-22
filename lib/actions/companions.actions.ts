@@ -39,7 +39,17 @@ export const getAllCompanions = async ({limit=10,page=1,subject,topic} : GetAllC
     query = query.range(from, to);
     const {data,error} = await query;
     if(error){
-        throw new Error("Failed to get all companions",error);
+        throw new Error(`Failed to get all companions ${error}`);
     }
     return data; 
+}
+
+
+export const getCompanion = async (id : string)=>{
+    const supabase = createSupabaseClient();
+    const {data,error} = await supabase.from("companions").select().eq('id',id);
+    if(error){
+  throw new Error(`Failed to get companion: ${error.message}`);
+    }
+    return data[0];
 }

@@ -28,7 +28,7 @@ const CompanionList = ({title,companions,classNames} : {title:string,companions?
           {companions?.map((item)=>(
             <TableRow key={item.id}>
               <TableCell>
-                <Link href={`/companion/${item.id}`}>
+                <Link href={`/companions/${item.id}`}>
                   <div className='flex items-center gap-2'>
                     <div className='size-[72px] flex items-center justify-center rounded-lg max-md:hidden' 
                     style={{

@@ -13,7 +13,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '.
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 const SubjectFilter = () => {
   const pathName = usePathname();
-  const [subject,setSubject] = useState('')
+  const val = useSearchParams().get('subject') || '';
+  const [subject,setSubject] = useState(val)
   const searchParams = useSearchParams();
   const router = useRouter();
 
