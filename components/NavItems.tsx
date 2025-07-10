@@ -1,14 +1,5 @@
 "use client"
 import { cn } from '@/lib/utils'
-import {
-  ClerkProvider,
-  SignInButton,
-  SignUpButton,
-  SignedIn,
-  SignedOut,
-  UserButton,
-} from '@clerk/nextjs'
-
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import React from 'react'

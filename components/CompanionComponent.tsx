@@ -1,7 +1,7 @@
 'use client';
 
 import {useEffect, useRef, useState} from 'react'
-import {cn, configureAssistant, getSubjectColor} from "@/lib/utils";
+import {cn, getSubjectColor} from "@/lib/utils";
 import {vapi} from "@/lib/vapi.sdk";
 import Image from "next/image";
 import Lottie, {LottieRefCurrentProps} from "lottie-react";
@@ -14,7 +14,7 @@ enum CallStatus {
     FINISHED = 'FINISHED',
 }
 
-const CompanionComponent = ({ companionId, subject, topic, name, userName, userImage, style, voice }: CompanionComponentProps) => {
+const CompanionComponent = ({ subject, topic, name, userName, userImage, style, voice }: CompanionComponentProps) => {
     const [callStatus, setCallStatus] = useState<CallStatus>(CallStatus.INACTIVE);
     const [isSpeaking, setIsSpeaking] = useState(false);
     const [isMuted, setIsMuted] = useState(false);

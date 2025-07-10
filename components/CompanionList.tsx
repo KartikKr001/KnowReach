@@ -2,7 +2,6 @@ import React from 'react'
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
@@ -11,8 +10,8 @@ import {
 import { cn, getSubjectColor } from '@/lib/utils'
 import Link from 'next/link'
 import Image from 'next/image'
-import { Button } from './ui/button'
 const CompanionList = ({title,companions,classNames} : {title:string,companions?:Companion[],classNames:string}) => {
+  const temp:string = title;
   return (
     <article className={cn("companion-list",classNames)}>
       <h2 className='font-bold text-3xl'>Reset Sessions</h2>

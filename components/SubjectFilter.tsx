@@ -1,13 +1,5 @@
 'use client'
 import React, { useEffect, useState } from 'react'
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
 import { subjects } from '@/constants'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'

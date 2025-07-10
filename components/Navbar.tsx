@@ -3,9 +3,7 @@ import Link from 'next/link'
 import React from 'react'
 import NavItems from './NavItems'
 import {
-ClerkProvider,
 SignInButton,
-SignUpButton,
 SignedIn,
 SignedOut,
 UserButton,
