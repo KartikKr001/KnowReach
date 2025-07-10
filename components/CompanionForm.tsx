@@ -19,7 +19,7 @@ import { subjects } from "@/constants"
 import { Textarea } from "./ui/textarea"
 import { createCompanion } from "@/lib/actions/companions.actions"
 import { redirect } from "next/navigation"
-import { toast } from "sonner"
+// import { toast } from "sonner"
 
 const formSchema = z.object({
   name: z.string().min(2, {message: "Companion name must be at least 2 characters.",}),
