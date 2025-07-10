@@ -83,7 +83,7 @@ const CompanionComponent = ({ subject, topic, name, userName, userImage, style, 
             serverMessages: [],
         }
 
-        // @ts-expect-error
+        // @ts-expect-error@ts-expect-error - mismatch between lib types and actual shape
         vapi.start(configureAssistant(voice, style), assistantOverrides)
     }
 
