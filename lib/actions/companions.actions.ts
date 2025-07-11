@@ -95,7 +95,7 @@ export const getRecentSessions = async (limit = 10) => {
     throw new Error(`Failed to get recent sessions: ${error.message}`);
   }
 
-  return data.map(({ companions }) => companions);
+  return data.map((companions) => companions);
 };
 
 export const getUserSessions = async (userId: string, limit = 10) => {
@@ -113,5 +113,23 @@ export const getUserSessions = async (userId: string, limit = 10) => {
     throw new Error(`Failed to get user sessions: ${error.message}`);
   }
 
-  return data.map(({ companions }) => companions);
+  return data.map((companions) => companions);
+};
+
+export const getUserCompanions = async (userId: string) => {
+  const supabase = createSupabaseClient();
+
+  const { data, error } = await supabase
+    .from("companions")
+    .select()
+    .eq("author", userId)
+  console.log("fetched: ", data);
+  if (error) {
+    console.error("Error getting user companions:", error);
+    throw new Error(`Failed to get user companions: ${error.message}`);
+  }
+
+  const temp =  data.map((companions) => companions);
+  console.log("id: ", temp);
+  return temp;
 };
