@@ -1,11 +1,12 @@
 'use client';
 
 import {useEffect, useRef, useState} from 'react'
-import {cn, getSubjectColor} from "@/lib/utils";
+import {cn, configureAssistant, getSubjectColor} from "@/lib/utils";
 import {vapi} from "@/lib/vapi.sdk";
 import Image from "next/image";
 import Lottie, {LottieRefCurrentProps} from "lottie-react";
 import soundwaves from '@/constants/soundwaves.json'
+import { addToSessionHistory } from '@/lib/actions/companions.actions';
 
 enum CallStatus {
     INACTIVE = 'INACTIVE',
@@ -14,7 +15,7 @@ enum CallStatus {
     FINISHED = 'FINISHED',
 }
 
-const CompanionComponent = ({ subject, topic, name, userName, userImage, style, voice }: CompanionComponentProps) => {
+const CompanionComponent = ({ companionId, subject, topic, name, userName, userImage, style, voice }: CompanionComponentProps) => {
     const [callStatus, setCallStatus] = useState<CallStatus>(CallStatus.INACTIVE);
     const [isSpeaking, setIsSpeaking] = useState(false);
     const [isMuted, setIsMuted] = useState(false);
@@ -37,6 +38,9 @@ const CompanionComponent = ({ subject, topic, name, userName, userImage, style, 
 
         const onCallEnd = () => {
             setCallStatus(CallStatus.FINISHED);
+            // add to session history(companionId)
+            addToSessionHistory(companionId);
+
         }
 
         const onMessage = (message: Message) => {
@@ -83,7 +87,7 @@ const CompanionComponent = ({ subject, topic, name, userName, userImage, style, 
             serverMessages: [],
         }
 
-        // @ts-expect-error@ts-expect-error - mismatch between lib types and actual shape
+        // @ts-expect-error
         vapi.start(configureAssistant(voice, style), assistantOverrides)
     }
 
@@ -93,13 +97,12 @@ const CompanionComponent = ({ subject, topic, name, userName, userImage, style, 
     }
 
     return (
-        <section className="flex flex-col h-[110vh]">
-            <section className="flex gap-8 max-sm:flex-col h-[55vh]">
+        <section className="flex flex-col h-[70vh]">
+            <section className="flex gap-8 max-sm:flex-col">
                 <div className="companion-section">
                     <div className="companion-avatar" style={{ 
-                        background: `linear-gradient(to right, ${getSubjectColor(subject)[0]}, ${getSubjectColor(subject)[1]})`
-
-                    }}>
+                        background: `linear-gradient(to right, ${getSubjectColor(subject)[0]}, ${getSubjectColor(subject)[1]})`,
+                        }}>
                         <div
                             className={
                             cn(
@@ -121,15 +124,15 @@ const CompanionComponent = ({ subject, topic, name, userName, userImage, style, 
                     <p className="font-bold text-2xl">{name}</p>
                 </div>
 
-                <div className="user-section ">
+                <div className="user-section">
                     <div className="user-avatar">
-                        <Image src={userImage} alt={userName} width={80} height={80} className="rounded-lg" />
+                        <Image src={userImage} alt={userName} width={130} height={130} className="rounded-lg" />
                         <p className="font-bold text-2xl">
                             {userName}
                         </p>
                     </div>
                     <button className="btn-mic" onClick={toggleMicrophone} disabled={callStatus !== CallStatus.ACTIVE}>
-                        <Image src={isMuted ? '/icons/mic-off.svg' : '/icons/mic-on.svg'} alt="mic" width={30} height={30} />
+                        <Image src={isMuted ? '/icons/mic-off.svg' : '/icons/mic-on.svg'} alt="mic" width={36} height={36} />
                         <p className="max-sm:hidden">
                             {isMuted ? 'Turn on microphone' : 'Turn off microphone'}
                         </p>

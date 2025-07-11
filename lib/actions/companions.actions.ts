@@ -53,3 +53,42 @@ export const getCompanion = async (id : string)=>{
     }
     return data[0];
 }
+
+export const addToSessionHistory = async (companionId : string)=>{
+    const {userId} = await auth();
+    const supabase = createSupabaseClient();
+    const {data,error} = await supabase.from("session_history").insert({
+        user_id:userId,
+        companion_id:companionId
+    });
+    if(error){
+        throw new Error(`Failed to add companion to session history: ${error.message}`);
+    }
+    return data;
+}
+
+export const getRecentSessions = async (limit = 10)=>{
+    const supabase = createSupabaseClient();
+    const {data,error} = await supabase.from("session_history")
+                        .select("companions:companion_id(*)")
+                        .order("created_at",{ascending : false})
+                        .limit(limit);
+    if(error){
+        throw new Error(`Failed to get recent sessions ${error}`);
+    }
+    return data.map(({companions}) => companions);
+}
+
+
+export const getUserSessions = async (userId : string,limit = 10)=>{
+    const supabase = createSupabaseClient();
+    const {data,error} = await supabase.from("session_history")
+                        .select("companions:companion_id(*)")
+                        .eq("user_id",userId)
+                        .order("created_at",{ascending : false})
+                        .limit(limit);
+    if(error){
+        throw new Error(`Failed to get user sessions ${error}`);
+    }   
+    return data.map(({companions}) => companions);
+}
